@@ -21,7 +21,7 @@ function Item() {
       </Header>
       <Body>
         {ItemList.map(({ name, price }) => {
-          return <Product name={name} price={price} />;
+          return <Product name={name} price={price} key={name} />;
         })}
       </Body>
     </>
