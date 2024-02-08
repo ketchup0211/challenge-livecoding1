@@ -1,52 +1,29 @@
-import { useState } from "react";
 import styled from "styled-components";
 import ItemList from "../shared/ItemList";
-import { Link } from "react-router-dom";
-function Item({ setCart }) {
-  const [itemList, setItemList] = useState(
-    ItemList.map((item) => ({ ...item, id: crypto.randomUUID(), count: 0 }))
-  );
+import Product from "../components/Product";
+const Header = styled.div`
+  text-align: center;
+  border-bottom: 1px solid black;
+  padding: 20px;
+  margin-bottom: 20px;
+`;
+const Title = styled.h1`
+  font-size: 40px;
+  font-weight: "bold";
+`;
+const Body = styled.div``;
 
-  const plus = (id) => {
-    setItemList(
-      itemList.map((item) =>
-        item.id === id ? { ...item, count: item.count + 1 } : item
-      )
-    );
-  };
-
-  const minus = () => {
-    setItemList(
-      itemList.map((item) =>
-        item.id === id ? { ...item, count: item.count - 1 } : item
-      )
-    );
-  };
-
-  const handleCartClick = (id) => {
-    const item = itemList.find((item) => item.id === id);
-    setCart((prev) => [...prev, item]);
-  };
-
+function Item() {
   return (
     <>
-      <h1>상품 페이지</h1>
-      <hr />
-      <div id="items">
-        {itemList.map((item) => (
-          <div className="item">
-            <p>{item.name}</p>
-            <p>{item.price}</p>
-            <p>{item.count}</p>
-            <button onClick={() => plus(item.id)}>+</button>
-            <button onClick={() => minus(item.id)}>-</button>
-            <button onClick={() => handleCartClick(item.id)}>
-              장바구니 추가
-            </button>
-          </div>
-        ))}
-      </div>
-      <Link to="/cart">장바구니</Link>
+      <Header>
+        <Title>상품 페이지</Title>
+      </Header>
+      <Body>
+        {ItemList.map(({ name, price }) => {
+          return <Product name={name} price={price} />;
+        })}
+      </Body>
     </>
   );
 }
